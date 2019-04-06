@@ -1,0 +1,139 @@
+<mat-toolbar> {{title}} </mat-toolbar>
+
+<mat-sidenav-container>
+
+  <!-- Sidebar -->
+  <mat-sidenav mode="side" opened>
+    <div class="sidenav-container">
+      <mat-form-field class="years-input" appearance="outline">
+        <mat-label>Years</mat-label>
+        <input matInput type="number"
+            [(ngModel)]="periodYears"
+            (input)="updateChart()">
+      </mat-form-field>
+
+      <mat-form-field class="budget-input" appearance="outline">
+        <mat-label>Budget</mat-label>
+        <input matInput type="number"
+            [(ngModel)]="periodBudget"
+            (input)="updateChart()">
+        <span matPrefix>$&nbsp;</span>
+        <span matSuffix>.00</span>
+      </mat-form-field>
+
+      <h3>Filter pipes by</h3>
+      <div *ngFor="let filter of filters">
+        <div [ngSwitch]="filter.type">
+  
+          <p *ngSwitchCase="'StringFilter'">
+            <b>{{filter.name}}</b><br />
+            <mat-form-field class="string-input" *ngSwitchCase="'StringFilter'">
+              <mat-label>{{filter.name}} or regular expression</mat-label>
+              <input matInput
+                  [(ngModel)]="filter.pattern"
+                  (input)="updateChart()">
+            </mat-form-field>
+            <button mat-icon-button
+                (click)="filter.pattern = ''; updateChart()">
+              <mat-icon aria-label="Clear number range">clear</mat-icon>
+            </button>
+          </p>
+  
+          <p *ngSwitchCase="'NumberFilter'">
+            <b>{{filter.name}}</b><br />
+            <mat-form-field class="range-input">
+              <mat-label>min</mat-label>
+              <input matInput
+                  type="number"
+                  [(ngModel)]="filter.min"
+                  (input)="updateChart()">
+            </mat-form-field>
+            <span class="range-to">to</span>
+            <mat-form-field class="range-input">
+              <mat-label>max</mat-label>
+              <input matInput
+                  type="number"
+                  [(ngModel)]="filter.max"
+                  (input)="updateChart()">
+            </mat-form-field>
+            <button mat-icon-button
+                (click)="filter.min = null; filter.max = null; updateChart()">
+              <mat-icon aria-label="Clear number range">clear</mat-icon>
+            </button>
+          </p>
+  
+          <p *ngSwitchCase="'DateFilter'">
+            <b>{{filter.name}}</b><br />
+            <mat-form-field class="range-input">
+              <input matInput
+                  placeholder="start"
+                  [matDatepicker]="start"
+                  [(ngModel)]="filter.start"
+                  (dateChange)="updateChart()"
+                  disabled>
+              <mat-datepicker-toggle matSuffix [for]="start"></mat-datepicker-toggle>
+              <mat-datepicker #start disabled="false"></mat-datepicker>
+            </mat-form-field>
+            <span class="range-to">to</span>
+            <mat-form-field class="range-input">
+              <input matInput
+                  placeholder="end"
+                  [matDatepicker]="end"
+                  [(ngModel)]="filter.end"
+                  (dateChange)="updateChart()"
+                  disabled>
+              <mat-datepicker-toggle matSuffix [for]="end"></mat-datepicker-toggle>
+              <mat-datepicker #end disabled="false"></mat-datepicker>
+            </mat-form-field>
+            <button mat-icon-button
+                (click)="filter.start = null; filter.end = null; updateChart()">
+              <mat-icon aria-label="Clear date range">clear</mat-icon>
+            </button>
+          </p>
+  
+        </div>
+      </div>
+    </div>
+  </mat-sidenav>
+
+  <!-- Content -->
+  <mat-sidenav-content>
+    <div *ngIf="chartData.length > 0; then drawChart else nothingToShow"></div>
+    <ng-template #drawChart>
+      <google-chart
+        [title]="title"
+        [type]="chartType"
+        [columnNames]="chartColumnNames"
+        [data]="chartData"
+        [options]="chartOptions"
+        dynamicResize="true">
+      </google-chart>
+    </ng-template>
+    <ng-template #nothingToShow>
+
+      <div *ngIf="cachedPipes == null; then loading else errorMessage"></div>
+      <ng-template #loading>
+        <mat-spinner></mat-spinner>
+      </ng-template>
+      <ng-template #errorMessage>
+        <div class="error-message">
+          <mat-icon>error</mat-icon>
+          <p>Looks like there is no data to show with the filters selected.</p>
+          <p>Please try:</p>
+          <ul>
+            <li>Making sure you have data</li>
+            <li>Redefining your filters</li>
+          </ul>
+        </div>
+      </ng-template>
+
+    </ng-template>
+  </mat-sidenav-content>
+
+</mat-sidenav-container>
+
+<script type="text/javascript">
+export function hello() {
+  console.log('hello')
+}
+</script>

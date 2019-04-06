@@ -1,27 +1,44 @@
-# PredictiveMaintenance
+# Predictive Maintenance for Water Utilities
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.2.1.
+## Running locally
 
-## Development server
+### Running the server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+It is recommended to run in a virtual environment.
+```sh
+python3 -m virtualenv env
+source env/bin/activate
+```
 
-## Code scaffolding
+Install the dependencies.
+```sh
+pip install -U -r server/requirements.txt
+```
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Run a local server in `localhost:8080`.
+```sh
+python server/main.py
+```
 
-## Build
+To deactivate the virtual environment.
+```sh
+deactivate
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+### Running the web application
 
-## Running unit tests
+This will have to be run in a different terminal than the server.
+Make sure the server is running too, otherwise no data will be displayed.
+```sh
+( cd webapp ; ng serve )
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Running in Google Cloud
 
-## Running end-to-end tests
+### Deploying the server
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+```sh
+gcloud app deploy server
+```
 
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+### Deploying the web application

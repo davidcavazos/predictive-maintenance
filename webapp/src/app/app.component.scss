@@ -1,0 +1,47 @@
+mat-sidenav-container {
+  height: 100%;
+}
+
+mat-sidenav h3 {
+  color: darkgray;
+  padding-bottom: 2ex;
+}
+
+.sidenav-container {
+  padding: 3ex;
+}
+
+.years-input {
+  width: 10ex;
+  margin-right: 1ex;
+}
+
+.budget-input {
+  width: 17ex;
+}
+
+.string-input {
+  width: 31ex;
+}
+
+.range-input {
+  width: 13ex;
+}
+
+.range-to {
+  padding-left: 1.5ex;
+  padding-right: 2ex;
+}
+
+mat-sidenav-content {
+  padding: 2ex;
+}
+
+google-chart {
+  width: 100%;
+  height: 100%;
+}
+
+.error-message {
+  padding: 5ex;
+}

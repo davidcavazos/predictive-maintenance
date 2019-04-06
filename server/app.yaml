@@ -1,0 +1,5 @@
+runtime: python37
+service: server
+
+env_variables:
+  GOOGLE_APPLICATION_CREDENTIALS: credentials.json
