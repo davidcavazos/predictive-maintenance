@@ -33,7 +33,7 @@ It won't be available to anyone outside your own local computer, and it won't ru
 It is recommended to run on Google Cloud once you are happy with your results.
 It will run globally and accessible to anyone on the Internet.
 
-## Option A: Deploying to App Engine
+### Option A: Deploying to App Engine
 
 Deploying will take a couple minutes, but after that the application will autoscale to match the current load of the application.
 
@@ -45,7 +45,7 @@ bash server/deploy.sh
 bash webapp/deploy.sh
 ```
 
-## Option B: Running locally
+### Option B: Running locally
 
 You will need to run the server and the web application on different terminals.
 
